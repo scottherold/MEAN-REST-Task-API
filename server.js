@@ -9,6 +9,7 @@ const app = express(); // constructs express server
 // <--- Server Settings --->
 app.use(bodyParser.json()); // for interpretting JSON data
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/public/dist/public')); // use Angular static folder
 
 // <--- Database & Routing --->
 require(__dirname + '/server/config/database'); // DB connection

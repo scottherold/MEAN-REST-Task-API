@@ -13,13 +13,14 @@ export class AppComponent implements OnInit{
   constructor(private _httpService: HttpService, private titleService: Title) { }
 
   // <--- Variables --->
-  tasks = [];
+  tasks = []; // for list of tasks
+  task = {}; // for individual task
+  taskClicked: boolean; // for dynamic page task area
 
   // <--- Methods --->
   // ngOnInit will run when the component is initialized, after the constructor method
   ngOnInit() {
     this.setTitle("Tasks API"); // Sets Page title
-    this.getTasksFromService(); // API call for all on page load
   }
   
   // Sets the title
@@ -40,5 +41,31 @@ export class AppComponent implements OnInit{
       // This must be mapped to the key for the objects in the JSON sent from your API controller
       this.tasks = data['tasks'];
     });
+  }
+
+  // invokes getTask() from https.service.ts
+  getTaskFromService(id: string) {
+    // Calls the method from the imported HttpService as an observable
+    let observable = this._httpService.getTask(id);
+
+    // Subscribes to the observable in the component instead of the service!
+    observable.subscribe(task => {
+      console.log("Got the task!", task);
+
+      // Sets the task variable in the component to the data
+      this.task = task;
+      this.taskClicked = true;
+    });
+  }
+
+  // <--- Event-Based Methods --->
+  // onclick -> all
+  getTasks(): void {
+    this.getTasksFromService(); // API call to get all tasks on click
+  }
+
+  // onclick -> show
+  getTask(id: string) : void {
+    this.getTaskFromService(id);
   }
 }

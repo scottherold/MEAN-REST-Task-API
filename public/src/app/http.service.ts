@@ -20,5 +20,13 @@ export class HttpService {
     // show as observable to be used in the component
     return this._http.get(`/tasks/${id}`);
   }
+
+  // Post argument from controller to server
+  postToServer(num) {
+    // use the .post() method of HttpClient
+    // num must be an object
+    // provide the url of your post route - make sure this is setup in your server!
+    return this._http.post('/tasks', num);
+  }
 }
 

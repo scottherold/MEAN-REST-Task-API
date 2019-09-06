@@ -6,7 +6,7 @@ const tasksController = require('../controllers/tasks'); // imports the controll
 module.exports = app => {
     app.get('/tasks', tasksController.index); // root
     app.get('/tasks/:id', tasksController.show); // show
-    app.post('/tasks/', tasksController.create); // create
+    app.post('/tasks', tasksController.create); // create
     app.put('/tasks/:id', tasksController.update); // update
     app.delete('/tasks/:id', tasksController.destroy); // delete
 }

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; // allows for HTTP request -- needs to be used in service as well as module
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HttpService {
   // Depedency injection to use HttpClient
   constructor(private _http: HttpClient) { }
@@ -19,14 +17,21 @@ export class HttpService {
   getTask(id: string) {
     // show as observable to be used in the component
     return this._http.get(`/tasks/${id}`);
+  };
+
+  // Create new task
+  addTask(newTask) {
+    return this._http.post('/tasks', newTask);
+  };
+
+  // Update task
+  updateTask(task) {
+    return this._http.put(`/tasks/${task._id}`, task);
   }
 
-  // Post argument from controller to server
-  postToServer(num) {
-    // use the .post() method of HttpClient
-    // num must be an object
-    // provide the url of your post route - make sure this is setup in your server!
-    return this._http.post('/tasks', num);
+  // Delete tasks
+  deleteTask(id: string) {
+    return this._http.delete(`/tasks/${id}`);
   }
 }
 

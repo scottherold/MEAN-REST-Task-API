@@ -1,0 +1,18 @@
+<div class="row justify-content-center py-2 my-1" *ngIf="tasks.length > 0">
+    <h2 class="text-center">All the Tasks</h2>
+</div>
+<div class="row justify-content-center py-2 my-1" *ngIf="tasks.length <= 0">
+    <h4 class="text-center">Please add a new task to continue...</h4>
+</div>
+<div class="row justify-content-center py-2 my-1">
+    <div id="tasks" class="col-6 border rounded pt-2 mb-4" *ngIf="tasks.length > 0">
+        <div class="row justify-content-start my-3" *ngFor="let task of tasks">
+        <div class="col-10">
+            <h5 class="text-start">{{task.title}}</h5>
+        </div>
+            <div class="col-2">
+                <button class="btn btn-success rounded-circle" (click)="showTask(task._id)">SHOW</button>
+            </div>
+        </div>
+    </div>
+</div>

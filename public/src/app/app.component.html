@@ -13,69 +13,12 @@
           <div class="row justify-content-center py-2 my-1">
             <h1 class="text-center">Restful Tasks API</h1>
           </div>
-          <div class="row justify-content-center py-2 my-1" *ngIf="tasks.length <= 0">
+          <div class="row justify-content-center py-2 my-1" *ngIf="!tasksFetched">
               <p><button class="btn btn-primary" (click)="getTasks()">GET ALL TASKS</button></p>
           </div>
-          <div class="row justify-content-center py-2 my-1" *ngIf="tasks.length > 0">
-            <h2 class="text-center">All the Tasks</h2>
-          </div>
-          <div class="row justify-content-center py-2 my-1" *ngIf="tasks.length > 0">
-            <div id="tasks" class="col-6 border rounded pt-2 mb-4">
-              <div class="row justify-content-start my-3" *ngFor="let task of tasks">
-                <div class="col-10">
-                  <h5 class="text-start">{{task.title}}</h5>
-                </div>
-                <div class="col-2">
-                  <button class="btn btn-success rounded-circle" (click)="getTask(task._id)">SHOW</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row justify-content-center py-2 my-1" *ngIf="taskClicked">
-              <div id="task" class="col-6 border rounded pt-2 mb-4">
-                <h4 class="text-center">{{task.title}}</h4>
-                <p class="text-center">{{task.description}}</p>
-                <p class="text-center">
-                  <button class="btn btn-warning mx-2" (click)="showUpdateForm()">EDIT</button>
-                  <button class="btn btn-danger mx-2" (click)="deleteTask(task._id)">DELETE</button>
-                  <button class="btn btn mx-2" (click)="hideTask()">HIDE</button>
-                </p>
-              </div>
-          </div>
-          <div class="row justify-content-center py-2 my-1" *ngIf="updateForm">
-            <div id="updateTask" class="col-6 border rounded pt-2 mb-4 bg-white">
-              <h4 class="text-center">Edit: {{task.title}}</h4>
-              <form (submit)="updateTask(task._id)">
-                <div class="row justify-content-center py-2">
-                  <input type="hidden" value="{{task._id}}" />
-                  <label for="title" class="mx-2">Title</label>
-                  <input type="text" class="mr-3" name="task.title" [(ngModel)]="task.title" />
-                  <label for="description" class="ml-3">Description</label>
-                  <input type="text" class="mx-2" name="task.description" [(ngModel)]="task.description" />
-                </div>
-                <div class="row justify-content-center mt-2 mb-4">
-                  <input type="submit" class="btn btn-warning mx-2" value="UPDATE" />
-                  <button class="btn mx-2" (click)="hideUpdateForm()">CANCEL</button>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="row justify-content-center py-2 my-1">
-            <div id="newTask" class="col-6 border rounded pt-2 mb-4">
-              <h4 class="text-center mt-3 mb-2">Add New Task</h4>
-              <form (submit)="createTask()">
-                <div class="row justify-content-center py-2">
-                  <label for="title" class="mx-2">Title</label>
-                  <input type="text" class="mr-3" name="newTask.title" [(ngModel)]="newTask.title" />
-                  <label for="description" class="ml-3">Description</label>
-                  <input type="text" class="mx-2" name="newTask.description" [(ngModel)]="newTask.description" />
-                </div>
-                <div class="row justify-content-center mt-2 mb-4">
-                  <input type="submit" class="btn btn-primary" value="SUBMIT" />
-                </div>
-              </form>
-            </div>
-          </div>
+          <app-tasks *ngIf="tasksFetched" [tasks]="tasks" (fetchTask)="getTask($event)"></app-tasks>
+          <app-task *ngIf="taskClicked" [task]="task" (taskToggled)="hideTask()" (taskUpdated)="getTask($event)" (taskDeleted)="getTasks()"></app-task>
+          <app-new-task (taskAdded)="ifTasks()"></app-new-task>
         </div>
     </body>
 </html>

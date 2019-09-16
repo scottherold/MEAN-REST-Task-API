@@ -1,0 +1,16 @@
+<div class="row justify-content-center py-2 my-1">
+    <div id="newTask" class="col-6 border rounded pt-2 mb-4">
+        <h4 class="text-center mt-3 mb-2">Add New Task</h4>
+        <form (submit)="createTask()">
+        <div class="row justify-content-center py-2">
+            <label for="title" class="mx-2">Title</label>
+            <input type="text" class="mr-3" name="newTask.title" [(ngModel)]="newTask.title" />
+            <label for="description" class="ml-3">Description</label>
+            <input type="text" class="mx-2" name="newTask.description" [(ngModel)]="newTask.description" />
+        </div>
+        <div class="row justify-content-center mt-2 mb-4">
+            <input type="submit" class="btn btn-primary" value="SUBMIT" />
+        </div>
+        </form>
+    </div>
+</div>

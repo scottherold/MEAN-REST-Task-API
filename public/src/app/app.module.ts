@@ -5,10 +5,16 @@ import { HttpService } from './http.service'; // imports HttpService class from 
 import { FormsModule } from '@angular/forms'; // imports Forms module to use HTTP forms
 
 import { AppComponent } from './app.component';
+import { TaskComponent } from './task/task.component';
+import { NewTaskComponent } from './new-task/new-task.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TaskComponent,
+    NewTaskComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,
